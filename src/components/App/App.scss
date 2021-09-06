@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+.card {
+    background: white;
+    //box-shadow: 0 1px 4px rgba(38, 50, 56, 0.4);
+    border-radius: 3px;
+    border: 1px solid #cfd8dc;
+    padding: 8px;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.9rem;
+
+    .card-header {
+        font-size: 1.15rem;
+    }
+}
