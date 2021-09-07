@@ -1,3 +1,5 @@
+import PostData from "./PostData";
+
 export default class Post {
     private static idCounter: number = 0;
 
@@ -9,5 +11,9 @@ export default class Post {
         if (id === undefined) {
             this.id = ++Post.idCounter;
         }
+    }
+
+    static fromPostData(postData: PostData) {
+        return new Post(postData.title, postData.content);
     }
 }

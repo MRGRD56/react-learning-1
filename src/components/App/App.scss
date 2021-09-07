@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
+.container {
+    font-family: "Roboto", sans-serif;
+}
+
 .card {
     background: white;
     //box-shadow: 0 1px 4px rgba(38, 50, 56, 0.4);
@@ -12,5 +16,90 @@
 
     .card-header {
         font-size: 1.15rem;
+    }
+}
+
+button.btn {
+    &.btn-outline-primary,
+    &.btn-outline-secondary,
+    &.btn-outline-success,
+    &.btn-outline-danger,
+    &.btn-outline-warning,
+    &.btn-outline-info {
+        background: transparent;
+    }
+
+
+    &.btn-outline-primary {
+        color: #2196f3; //Blue 500
+
+        &:hover,
+        &:focus-visible {
+            background: #bbdefb; //Blue 100
+        }
+    }
+
+    &.btn-outline-secondary {
+        color: #607d8b;
+
+        &:hover,
+        &:focus-visible {
+            background: #cfd8dc;
+        }
+    }
+
+    &.btn-outline-success {
+        color: #4caf50;
+
+        &:hover,
+        &:focus-visible {
+            background: #c8e6c9;
+        }
+    }
+
+    &.btn-outline-danger {
+        color: #f44336; //Red 500
+
+        &:hover,
+        &:focus-visible {
+            background: #ffcdd2; //Red 100
+        }
+    }
+
+    &.btn-outline-warning {
+        color: #ffa000;
+
+        &:hover,
+        &:focus-visible {
+            background: #ffecb3;
+        }
+    }
+
+    &.btn-outline-info {
+        color: #00bcd4;
+
+        &:hover,
+        &:focus-visible {
+            background: #b2ebf2;
+        }
+    }
+
+
+    font-family: "Roboto", sans-serif;
+    align-self: start;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 0.5rem 1.3rem;
+    background: transparent;
+    border: none;
+    border-radius: 3px;
+    transition: 0.25s background, color;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:focus-visible {
+        outline: none;
     }
 }

@@ -6,7 +6,7 @@ import "./PostInput.scss";
 interface Props {
     postData?: PostData,
     mode?: PostInputMode,
-    onSubmit?: React.FormEventHandler
+    addPost: (postData: PostData) => void
 }
 
 function PostInput(props: Props) {
@@ -27,20 +27,32 @@ function PostInput(props: Props) {
     }
 
     function isEdit() {
-        return props.mode == PostInputMode.edit;
+        return props.mode === PostInputMode.edit;
+    }
+
+    function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        props.addPost(postData);
+        setPostData({
+            ...postData,
+            title: "",
+            content: ""
+        });
     }
 
     return (
-        <form className="post-input-form d-flex flex-column card">
+        <form className={`post-input-form d-flex flex-column card`} onSubmit={onSubmit}>
             <input type="text" className="post-input-title" placeholder="Title"
                    value={postData.title} onChange={onTitleChange}/>
             <textarea className="post-input-content" placeholder="Content"
                       value={postData.content} onChange={onContentChange}/>
             <div className="d-flex">
-                <button type="submit" onSubmit={props.onSubmit}>SUBMIT</button>
+                <button type="submit" className="btn btn-outline-primary">
+                    SUBMIT
+                </button>
                 {
                     isEdit() && (
-                        <button className="cancel" onSubmit={props.onSubmit}>CANCEL</button>
+                        <button type="button" className="btn btn-outline-secondary">CANCEL</button>
                     )
                 }
             </div>

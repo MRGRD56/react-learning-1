@@ -21,42 +21,4 @@ form.post-input-form {
         max-height: 116px;
         height: 36px;
     }
-
-    button {
-        &[type="submit"] {
-            color: #2196f3;
-
-            &:hover,
-            &:focus-visible {
-                background: #bbdefb;
-            }
-        }
-
-        &.cancel {
-            color: #f44336;
-
-            &:hover,
-            &:focus-visible {
-                background: #ffcdd2;
-            }
-        }
-
-        font-family: "Roboto", sans-serif;
-        align-self: start;
-        font-weight: bold;
-        font-size: 0.9rem;
-        padding: 0.5rem 1.3rem;
-        background: transparent;
-        border: none;
-        border-radius: 3px;
-        transition: 0.25s background, color;
-
-        &:hover {
-            cursor: pointer;
-        }
-
-        &:focus-visible {
-            outline: none;
-        }
-    }
 }

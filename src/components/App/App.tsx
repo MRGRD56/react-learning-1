@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.scss';
-import Counter from "../Counter/Counter";
 import PostsContainer from "../PostsContainer/PostsContainer";
 
 function App() {

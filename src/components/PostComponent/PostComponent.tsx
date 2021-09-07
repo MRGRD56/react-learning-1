@@ -1,10 +1,10 @@
 import React from 'react';
 import Post from "../../models/Post";
-import "./PostComponent.scss"
+import "./PostComponent.scss";
 
 interface Props {
     post: Post,
-    delete?: (post: Post) => void
+    removePost: (post: Post) => void
 }
 
 function PostComponent({post, ...props}: Props) {
@@ -15,8 +15,11 @@ function PostComponent({post, ...props}: Props) {
                     <div className="d-flex justify-content-between">
                         <div className="card-header">{post.title}</div>
                         <div className="d-flex text-secondary toolbar">
-                            <button className="btn btn-toolbar material-icons m-1 p-0 post-delete-button">edit</button>
-                            <button className="btn btn-toolbar material-icons m-1 p-0 post-delete-button">close</button>
+                            <button className="material-icons m-1 p-0 post-delete-button">edit</button>
+                            <button className="material-icons m-1 p-0 post-delete-button"
+                                    onClick={() => props.removePost(post)}>
+                                close
+                            </button>
                         </div>
                     </div>
                     <div>
