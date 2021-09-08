@@ -32,6 +32,11 @@ function PostInput(props: Props) {
 
     function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+
+        if (!postData.title?.trim() || !postData.content?.trim()) {
+            return;
+        }
+
         props.addPost(postData);
         setPostData({
             ...postData,
@@ -41,7 +46,7 @@ function PostInput(props: Props) {
     }
 
     return (
-        <form className={`post-input-form d-flex flex-column card`} onSubmit={onSubmit}>
+        <form className="post-input-form d-flex flex-column card" onSubmit={onSubmit}>
             <input type="text" className="post-input-title" placeholder="Title"
                    value={postData.title} onChange={onTitleChange}/>
             <textarea className="post-input-content" placeholder="Content"

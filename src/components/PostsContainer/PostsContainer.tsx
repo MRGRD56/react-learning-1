@@ -4,13 +4,15 @@ import PostsList from "../PostsList/PostsList";
 import PostInput from "../PostInput/PostInput";
 import PostInputMode from "../../models/PostInputMode";
 import PostData from "../../models/PostData";
+import Modal from "../Modal/Modal";
 
 function PostsContainer() {
     const postsKey = "posts";
 
     const [posts, _setPosts] = useState<Post[]>(loadPosts());
+    const [newPostModalIsActive, setNewPostModalIsActive] = useState(false);
 
-    function loadPosts() {
+    function loadPosts(): Post[] {
         const fallbackValue = [
             new Post("JavaScript", "It's JavaScript language"),
             new Post("TypeScript",
@@ -21,7 +23,7 @@ function PostsContainer() {
 
         const postsJson = localStorage.getItem(postsKey);
         return postsJson != null
-            ? JSON.parse(postsJson)
+            ? Post.fromJson(postsJson) as Post[]
             : fallbackValue;
     }
 
@@ -33,6 +35,7 @@ function PostsContainer() {
     function addPost(postData: PostData) {
         const newPost = Post.fromPostData(postData);
         setPosts([...posts, newPost]);
+        setNewPostModalIsActive(false);
     }
 
     function removePost(post: Post) {
@@ -41,7 +44,14 @@ function PostsContainer() {
 
     return (
         <div className="my-2">
-            <PostInput mode={PostInputMode.add} addPost={addPost}/>
+            <Modal isActive={newPostModalIsActive} setIsActive={setNewPostModalIsActive}>
+                <PostInput mode={PostInputMode.add} addPost={addPost}/>
+            </Modal>
+            <div>
+                <button className="btn btn-outline-primary mb-2" onClick={() => setNewPostModalIsActive(true)}>
+                    NEW POST
+                </button>
+            </div>
             <PostsList posts={posts} removePost={removePost}/>
         </div>
     );

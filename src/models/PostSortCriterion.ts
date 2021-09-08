@@ -1,7 +1,8 @@
 enum PostSortCriterion {
     default,
     title,
-    content
+    content,
+    time
 }
 
 export default PostSortCriterion;

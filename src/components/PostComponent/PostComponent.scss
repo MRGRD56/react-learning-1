@@ -1,4 +1,6 @@
 .post-card {
+    padding: 0.9rem;
+
     .post-delete-button {
         visibility: hidden;
         margin-top: -5px;
@@ -11,21 +13,35 @@
         }
     }
 
-    .toolbar>button {
-        background: transparent;
-        border: none;
-        font-size: 18px;
-        color: #757575;
+    .toolbar {
+        margin-top: -10px;
+        margin-right: -10px;
 
-        &:hover,
-        &:focus-visible {
-            cursor: pointer;
-            color: #212121;
-        }
+        &>button {
+            background: transparent;
+            border: none;
+            font-size: 18px;
+            color: #757575;
 
-        &:focus,
-        &:focus-visible {
-            outline: none;
+            &:hover,
+            &:focus-visible {
+                cursor: pointer;
+                color: #212121;
+            }
+
+            &:focus,
+            &:focus-visible {
+                outline: none;
+            }
         }
+    }
+
+    .post-time {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        margin-right: -10px;
+        margin-bottom: -10px;
+        color: #78909c;
     }
 }

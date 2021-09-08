@@ -21,6 +21,7 @@ function PostsCriteria(props: Props) {
                     <option value={PostSortCriterion.default}>Default</option>
                     <option value={PostSortCriterion.title}>Title</option>
                     <option value={PostSortCriterion.content}>Content</option>
+                    <option value={PostSortCriterion.time}>Creation time</option>
                 </select>
             </div>
         </div>

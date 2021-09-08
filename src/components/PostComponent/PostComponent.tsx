@@ -1,6 +1,7 @@
 import React from 'react';
 import Post from "../../models/Post";
 import "./PostComponent.scss";
+import moment from "moment";
 
 interface Props {
     post: Post,
@@ -11,7 +12,7 @@ function PostComponent({post, ...props}: Props) {
     return (
         <div className="card mb-2 post-card">
             <div className="d-flex w-100">
-                <div className="w-100">
+                <div className="w-100 position-relative">
                     <div className="d-flex justify-content-between">
                         <div className="card-header">{post.title}</div>
                         <div className="d-flex text-secondary toolbar">
@@ -24,6 +25,9 @@ function PostComponent({post, ...props}: Props) {
                     </div>
                     <div>
                         {post.content}
+                    </div>
+                    <div className="post-time">
+                        {post.creationTime.fromNow()}
                     </div>
                 </div>
             </div>

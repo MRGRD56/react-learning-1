@@ -1,19 +1,35 @@
 import PostData from "./PostData";
+import moment, {Moment} from "moment";
 
 export default class Post {
     private static idCounter: number = 0;
 
+    public readonly id: string;
+    public readonly creationTime: Moment = moment();
+
     constructor(
         public readonly title: string,
         public readonly content: string,
-        public readonly id: number | undefined = undefined
+        creationTime: Moment | undefined = undefined,
+        id: string | undefined = undefined
     ) {
-        if (id === undefined) {
-            this.id = ++Post.idCounter;
-        }
+        this.creationTime = creationTime ?? moment();
+        this.id = id ?? Date.now().valueOf().toString() + "_" + ++Post.idCounter;
     }
 
     static fromPostData(postData: PostData) {
         return new Post(postData.title, postData.content);
+    }
+
+    private static getPostFromParsed(parsed: any) {
+        return new Post(parsed.title, parsed.content, moment(parsed.creationTime), parsed.id);
+    }
+
+    static fromJson(json: string): Post | Post[] {
+        const parsed = JSON.parse(json);
+        const isArray = Array.isArray(parsed);
+        return isArray
+            ? parsed.map(p => Post.getPostFromParsed(p))
+            : Post.getPostFromParsed(parsed);
     }
 }

@@ -3,8 +3,8 @@ import Post from "../../models/Post";
 import PostComponent from "../PostComponent/PostComponent";
 import PostsCriteria from "../PostsCriteria/PostsCriteria";
 import PostSortCriterion from "../../models/PostSortCriterion";
-import * as stream from "stream";
-import {strict} from "assert";
+import {CSSTransition, TransitionGroup} from "react-transition-group";
+import "./PostsList.scss";
 
 interface Props {
     posts: Post[],
@@ -20,6 +20,9 @@ function PostsList({posts, ...props}: Props) {
                 break;
             case PostSortCriterion.content:
                 result.sort((a, b) => a.content.localeCompare(b.content));
+                break;
+            case PostSortCriterion.time:
+                result.sort((a, b) => b.creationTime.diff(a.creationTime));
                 break;
         }
         return result;
@@ -69,9 +72,15 @@ function PostsList({posts, ...props}: Props) {
             <div>
                 {posts.length
                     ? (displayablePosts.length
-                        ? displayablePosts.map(post => (
-                            <PostComponent post={post} key={post.id} removePost={props.removePost}/>
-                        ))
+                        ? (
+                            <TransitionGroup>
+                                {displayablePosts.map(post => (
+                                    <CSSTransition key={post.id} timeout={200} classNames="post">
+                                        <PostComponent post={post} removePost={props.removePost}/>
+                                    </CSSTransition>
+                                ))}
+                            </TransitionGroup>
+                        )
                         : (<div className="m-2 text-secondary">No posts found</div>))
                     : (
                         <div className="m-2 text-secondary">No posts</div>
