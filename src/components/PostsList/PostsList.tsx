@@ -1,10 +1,11 @@
-import React, {useMemo, useState} from 'react';
+import React from 'react';
 import Post from "../../models/Post";
 import PostComponent from "../PostComponent/PostComponent";
-import PostsCriteria from "../PostsCriteria/PostsCriteria";
+import PostsCriteriaComponent from "../PostsCriteriaComponent/PostsCriteriaComponent";
 import PostSortCriterion from "../../models/PostSortCriterion";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import "./PostsList.scss";
+import usePosts from "../../hooks/usePosts";
 
 interface Props {
     posts: Post[],
@@ -12,63 +13,25 @@ interface Props {
 }
 
 function PostsList({posts, ...props}: Props) {
-    function getSortedPosts(posts: Post[]): Post[] {
-        let result = [...posts];
-        switch (state.sortCriterion) {
-            case PostSortCriterion.title:
-                result.sort((a, b) => a.title.localeCompare(b.title));
-                break;
-            case PostSortCriterion.content:
-                result.sort((a, b) => a.content.localeCompare(b.content));
-                break;
-            case PostSortCriterion.time:
-                result.sort((a, b) => b.creationTime.diff(a.creationTime));
-                break;
-        }
-        return result;
-    }
-
-    function getFilteredPosts(posts: Post[]): Post[] {
-        const searchQuery = state.searchQuery.toLowerCase().trim();
-        const isSearchQueryEmpty = !searchQuery;
-        if (isSearchQueryEmpty) return posts;
-        return posts.filter(p => {
-            return p.title.toLowerCase().includes(searchQuery)
-                || p.content.toLowerCase().includes(searchQuery);
-        });
-    }
-
-    function getPostsByCriteria(): Post[] {
-        const sortedPosts = getSortedPosts(posts);
-        const filteredPosts = getFilteredPosts(sortedPosts);
-        return filteredPosts;
-    }
-
-    const [state, setState] = useState({
-        sortCriterion: PostSortCriterion.default,
-        searchQuery: ""
-    });
-
-    const displayablePosts = useMemo(() => getPostsByCriteria(),
-        [posts, state.sortCriterion, state.searchQuery]);
+    const [criteria, setCriteria, displayablePosts] = usePosts(posts);
 
     function onSort(sortCriterion: PostSortCriterion) {
-        setState({
-            ...state,
+        setCriteria({
+            ...criteria,
             sortCriterion: sortCriterion
         })
     }
 
     function onSearch(searchQuery: string) {
-        setState({
-            ...state,
+        setCriteria({
+            ...criteria,
             searchQuery: searchQuery
         });
     }
 
     return (
         <div>
-            <PostsCriteria onSort={onSort} onSearch={onSearch}/>
+            <PostsCriteriaComponent onSort={onSort} onSearch={onSearch}/>
             <div>
                 {posts.length
                     ? (displayablePosts.length

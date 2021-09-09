@@ -7,7 +7,7 @@ interface Props {
     onSearch?: (searchQuery: string) => void
 }
 
-function PostsCriteria(props: Props) {
+function PostsCriteriaComponent(props: Props) {
     return (
         <div className="d-flex justify-content-between mb-2">
             <div>
@@ -28,4 +28,4 @@ function PostsCriteria(props: Props) {
     );
 }
 
-export default PostsCriteria;
+export default PostsCriteriaComponent;

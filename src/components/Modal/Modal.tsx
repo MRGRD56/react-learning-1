@@ -33,7 +33,7 @@ function Modal({isActive, setIsActive, children, ...props}: Props) {
 
     return (
         //CSSTransition is not working
-        <CSSTransition timeout={300} classNames="modal">
+        <CSSTransition in={isActive === true} timeout={200} classNames="modal">
             <div className={classes({
                 "active": () => isActive === true
             }, "modal")} {...props}

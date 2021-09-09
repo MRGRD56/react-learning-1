@@ -6,7 +6,8 @@ import "./PostInput.scss";
 interface Props {
     postData?: PostData,
     mode?: PostInputMode,
-    addPost: (postData: PostData) => void
+    addPost: (postData: PostData) => void,
+    onCancel?: (postData: PostData) => void
 }
 
 function PostInput(props: Props) {
@@ -23,7 +24,7 @@ function PostInput(props: Props) {
         const textArea = e.target;
         setPostData({...postData, content: textArea.value});
         textArea.style.height = "auto";
-        textArea.style.height = textArea.scrollHeight + "px";
+        textArea.style.height = Math.max(textArea.scrollHeight, 102) + "px";
     }
 
     function isEdit() {
@@ -52,14 +53,9 @@ function PostInput(props: Props) {
             <textarea className="post-input-content" placeholder="Content"
                       value={postData.content} onChange={onContentChange}/>
             <div className="d-flex">
-                <button type="submit" className="btn btn-outline-primary">
-                    SUBMIT
-                </button>
-                {
-                    isEdit() && (
-                        <button type="button" className="btn btn-outline-secondary">CANCEL</button>
-                    )
-                }
+                <button type="submit" className="btn btn-outline-primary">SUBMIT</button>
+                <button type="button" className="btn btn-outline-secondary"
+                        onClick={() => props.onCancel?.(postData)}>CANCEL</button>
             </div>
         </form>
     );

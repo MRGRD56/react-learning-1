@@ -1,5 +1,8 @@
 import PostData from "./PostData";
 import moment, {Moment} from "moment";
+import FetchedPost from "./FetchedPost";
+// @ts-ignore
+import momentRandom from "moment-random";
 
 export default class Post {
     private static idCounter: number = 0;
@@ -31,5 +34,13 @@ export default class Post {
         return isArray
             ? parsed.map(p => Post.getPostFromParsed(p))
             : Post.getPostFromParsed(parsed);
+    }
+
+    static fromFetchedPost(fetchedPost: FetchedPost): Post {
+        return new Post(
+            fetchedPost.title,
+            fetchedPost.body,
+            momentRandom(moment(), moment().add(-3, "years") as Moment),
+            fetchedPost.id.toString());
     }
 }
