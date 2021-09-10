@@ -1,7 +1,6 @@
 import PostData from "./PostData";
 import moment, {Moment} from "moment";
 import FetchedPost from "./FetchedPost";
-// @ts-ignore
 import momentRandom from "moment-random";
 
 export default class Post {
