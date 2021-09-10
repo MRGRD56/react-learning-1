@@ -5,6 +5,7 @@ import NotFound from "../pages/NotFound/NotFound";
 import PostById from "../pages/PostById/PostById";
 import GetText from "../pages/GetText/GetText";
 import Login from "../pages/Login";
+import Logout from "../pages/Logout/Logout";
 
 export const routes: NavRoute[] = [
     { path: "/", exact: true, component: PostsContainer, isAuth: true },
@@ -12,6 +13,7 @@ export const routes: NavRoute[] = [
     { path: "/get_text/:text", component: GetText, isAuth: true },
     { path: "/posts/:id", component: PostById, isAuth: true },
     { path: "/login", component: Login, isAuth: false },
+    { path: "/logout", component: Logout, isAuth: true },
     { path: "/404", component: NotFound, isAuth: null }
 ];
 
