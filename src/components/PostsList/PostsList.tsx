@@ -6,6 +6,8 @@ import PostSortCriterion from "../../models/PostSortCriterion";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import "./PostsList.scss";
 import usePosts from "../../hooks/usePosts";
+import PagesNavigator from "../PagesNavigator/PagesNavigator";
+import usePagination from "../../hooks/usePagination";
 
 interface Props {
     posts: Post[],
@@ -14,6 +16,7 @@ interface Props {
 
 function PostsList({posts, ...props}: Props) {
     const [criteria, setCriteria, displayablePosts] = usePosts(posts);
+    const pagination = usePagination(displayablePosts, 10);
 
     function onSort(sortCriterion: PostSortCriterion) {
         setCriteria({
@@ -36,13 +39,18 @@ function PostsList({posts, ...props}: Props) {
                 {posts.length
                     ? (displayablePosts.length
                         ? (
-                            <TransitionGroup>
-                                {displayablePosts.map(post => (
-                                    <CSSTransition key={post.id} timeout={200} classNames="post">
-                                        <PostComponent post={post} removePost={props.removePost}/>
-                                    </CSSTransition>
-                                ))}
-                            </TransitionGroup>
+                            <div className="d-flex flex-column">
+                                <TransitionGroup>
+                                    {pagination.currentPageItems.map(post => (
+                                        <CSSTransition key={post.id} timeout={200} classNames="post">
+                                            <PostComponent post={post} removePost={props.removePost}/>
+                                        </CSSTransition>
+                                    ))}
+                                </TransitionGroup>
+                                <div className="align-self-center">
+                                    <PagesNavigator pagination={pagination}/>
+                                </div>
+                            </div>
                         )
                         : (<div className="m-2 text-secondary">No posts found</div>))
                     : (

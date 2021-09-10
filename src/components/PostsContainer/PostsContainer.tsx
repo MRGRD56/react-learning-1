@@ -7,12 +7,19 @@ import PostData from "../../models/PostData";
 import Modal from "../Modal/Modal";
 import axios from "axios";
 import FetchedPost from "../../models/FetchedPost";
+import Loader from "../UI/Loader/Loader";
+import useFetching from "../../hooks/useFetching";
 
 function PostsContainer() {
     const postsKey = "posts";
 
     const [posts, _setPosts] = useState<Post[]>(loadPosts());
     const [newPostModalIsActive, setNewPostModalIsActive] = useState(false);
+    // const [isPostsLoading, setIsPostsLoading] = useState(false);
+    const [setFetchedPosts, isPostsLoading] = useFetching(async () => {
+        const fetchedPosts = await fetchPosts();
+        setPosts(fetchedPosts);
+    });
 
     function loadPosts(): Post[] {
         const postsJson = localStorage.getItem(postsKey);
@@ -47,9 +54,7 @@ function PostsContainer() {
 
     useEffect(() => {
         if (!posts.length) {
-            fetchPosts().then(posts => {
-                setPosts(posts);
-            });
+            setFetchedPosts()
         }
     }, []);
 
@@ -63,7 +68,11 @@ function PostsContainer() {
                     NEW POST
                 </button>
             </div>
-            <PostsList posts={posts} removePost={removePost}/>
+            {
+                isPostsLoading
+                    ? <Loader/>
+                    : <PostsList posts={posts} removePost={removePost}/>
+            }
         </div>
     );
 }

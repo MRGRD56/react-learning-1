@@ -3,7 +3,7 @@ import PostsCriteria from "../models/PostsCriteria";
 import PostSortCriterion from "../models/PostSortCriterion";
 import React, {useMemo, useState} from "react";
 
-export default function usePosts(posts: Post[]): [PostsCriteria, React.Dispatch<React.SetStateAction<PostsCriteria>>, Post[]] {
+export default function usePosts(posts: Post[]): [PostsCriteria, React.Dispatch<React.SetStateAction<PostsCriteria>>, Post[], ] {
     const [criteria, setCriteria] = useState<PostsCriteria>({
         sortCriterion: PostSortCriterion.default,
         searchQuery: ""

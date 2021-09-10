@@ -1,7 +1,6 @@
 import React from 'react';
 import Post from "../../models/Post";
 import "./PostComponent.scss";
-import moment from "moment";
 
 interface Props {
     post: Post,
