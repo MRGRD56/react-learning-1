@@ -1,12 +1,16 @@
 import React from 'react';
 import './App.scss';
-import PostsContainer from "../PostsContainer/PostsContainer";
+import {BrowserRouter} from "react-router-dom";
+import ContentRoot from "../UI/ContentRoot/ContentRoot";
+import AppRouter from "../AppRouter";
 
 function App() {
     return (
-        <div className="container">
-            <PostsContainer/>
-        </div>
+        <BrowserRouter>
+            <ContentRoot>
+                <AppRouter/>
+            </ContentRoot>
+        </BrowserRouter>
     );
 }
 

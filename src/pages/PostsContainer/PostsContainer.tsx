@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import Post from "../../models/Post";
-import PostsList from "../PostsList/PostsList";
-import PostInput from "../PostInput/PostInput";
+import PostsList from "../../components/PostsList/PostsList";
+import PostInput from "../../components/PostInput/PostInput";
 import PostInputMode from "../../models/PostInputMode";
 import PostData from "../../models/PostData";
-import Modal from "../Modal/Modal";
-import axios from "axios";
-import FetchedPost from "../../models/FetchedPost";
-import Loader from "../UI/Loader/Loader";
+import Modal from "../../components/Modal/Modal";
+import Loader from "../../components/UI/Loader/Loader";
 import useFetching from "../../hooks/useFetching";
+import JsonPlaceholder from "../../services/JsonPlaceholder";
 
 function PostsContainer() {
     const postsKey = "posts";
@@ -17,7 +16,7 @@ function PostsContainer() {
     const [newPostModalIsActive, setNewPostModalIsActive] = useState(false);
     // const [isPostsLoading, setIsPostsLoading] = useState(false);
     const [setFetchedPosts, isPostsLoading] = useFetching(async () => {
-        const fetchedPosts = await fetchPosts();
+        const fetchedPosts = await JsonPlaceholder.getPosts();
         setPosts(fetchedPosts);
     });
 
@@ -45,11 +44,6 @@ function PostsContainer() {
 
     function onNewPostModalCancel(postData: PostData) {
         setNewPostModalIsActive(false);
-    }
-
-    async function fetchPosts(): Promise<Post[]> {
-        const response = await axios.get<FetchedPost[]>("https://jsonplaceholder.typicode.com/posts");
-        return response.data.map(x => Post.fromFetchedPost(x));
     }
 
     useEffect(() => {
