@@ -3,7 +3,7 @@ import './App.scss';
 import {BrowserRouter} from "react-router-dom";
 import ContentRoot from "../UI/ContentRoot/ContentRoot";
 import AppRouter from "../AppRouter";
-import {AuthContext, IAuthContext} from 'src/models/AuthContext';
+import AuthContext from 'src/models/AuthContext';
 
 function App() {
     const [isAuth, _setIsAuth] = useState<boolean>(loadIsAuth());

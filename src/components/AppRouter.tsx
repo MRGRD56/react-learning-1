@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {Redirect, Route, Switch} from "react-router-dom";
 import {routes, authorizedRedirect, unauthorizedRedirect} from "../router/routes";
-import {AuthContext} from "../models/AuthContext";
+import AuthContext from "../models/AuthContext";
 
 function AppRouter() {
     const authContext = useContext(AuthContext);

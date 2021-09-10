@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Link} from "react-router-dom";
-import {AuthContext} from "../../models/AuthContext";
+import AuthContext from "../../models/AuthContext";
 
 function SiteHeader() {
     const authContext = useContext(AuthContext);

@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
-import {AuthContext, IAuthContext} from "../models/AuthContext";
+import AuthContext from "../models/AuthContext";
 
 function Login() {
-    const authContext = useContext<IAuthContext>(AuthContext);
+    const authContext = useContext(AuthContext);
 
     function onClick() {
         authContext.setIsAuth?.(true);
