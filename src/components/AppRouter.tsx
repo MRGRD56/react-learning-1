@@ -1,29 +1,26 @@
 import React from 'react';
 import {Redirect, Route, Switch} from "react-router-dom";
-import PostsContainer from "../pages/PostsContainer/PostsContainer";
-import About from "../pages/About/About";
-import NotFound from "../pages/NotFound/NotFound";
-import GetText from "../pages/GetText/GetText";
-import PostById from "../pages/PostById/PostById";
+import {routes, authorizedRedirect, unauthorizedRedirect} from "../router/routes";
 
 function AppRouter() {
+    const isAuth = false;
+
     return (
         <Switch>
-            <Route path="/" exact={true}>
-                <PostsContainer/>
-            </Route>
-            <Route path="/about">
-                <About/>
-            </Route>
-            <Route path="/get_text/:text">
-                <GetText/>
-            </Route>
-            <Route path="/posts/:id">
-                <PostById/>
-            </Route>
-            <Route path="/404">
-                <NotFound/>
-            </Route>
+            {routes.map(route => {
+                const doAuthorizedRedirect = isAuth && (route.isAuth === false);
+                const doUnauthorizedRedirect = !isAuth && (route.isAuth === true);
+                const redirectPath =
+                    doAuthorizedRedirect
+                        ? authorizedRedirect
+                        : doUnauthorizedRedirect
+                            ? unauthorizedRedirect
+                            : null;
+
+                return redirectPath !== null
+                    ? <Redirect path={route.path} exact={route.exact} to={redirectPath}/>
+                    : <Route path={route.path} exact={route.exact} component={route.component}/>;
+            })}
             <Redirect to="/404"/>
         </Switch>
     );

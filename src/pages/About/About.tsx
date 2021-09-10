@@ -12,7 +12,7 @@ function About() {
     }
 
     return (
-        <div>
+        <div className="mt-2">
             <div>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. At debitis dolore, enim fugiat, harum iusto
                 molestias omnis quam quidem sapiente similique vitae voluptatem. Dolorum incidunt laboriosam maiores,
@@ -22,6 +22,7 @@ function About() {
                 <BindableInput type="text" value={textToGet} setValue={setTextToGet}/>
                 <button className="btn btn-outline-primary">SUBMIT</button>
             </form>
+            <a href="/posts/9">Get ninth post!</a>
         </div>
     );
 }
