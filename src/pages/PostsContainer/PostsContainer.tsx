@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Post from "../../models/Post";
 import PostsList from "../../components/PostsList/PostsList";
 import PostInput from "../../components/PostInput/PostInput";
@@ -8,6 +8,7 @@ import Modal from "../../components/Modal/Modal";
 import Loader from "../../components/UI/Loader/Loader";
 import useFetching from "../../hooks/useFetching";
 import JsonPlaceholder from "../../services/JsonPlaceholder";
+import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 
 function PostsContainer() {
     const postsKey = "posts";
@@ -18,6 +19,10 @@ function PostsContainer() {
     const [setFetchedPosts, isPostsLoading] = useFetching(async () => {
         const fetchedPosts = await JsonPlaceholder.getPosts();
         setPosts(fetchedPosts);
+    });
+    const bottomIntersectionDiv = useRef<HTMLDivElement>(null);
+    useIntersectionObserver(bottomIntersectionDiv, entry => {
+        console.log("LOAD MORE ITEMS");
     });
 
     function loadPosts(): Post[] {
@@ -65,7 +70,12 @@ function PostsContainer() {
             {
                 isPostsLoading
                     ? <Loader/>
-                    : <PostsList posts={posts} removePost={removePost}/>
+                    : (
+                        <div>
+                            <PostsList posts={posts} removePost={removePost}/>
+                            <div ref={bottomIntersectionDiv}/>
+                        </div>
+                    )
             }
         </div>
     );

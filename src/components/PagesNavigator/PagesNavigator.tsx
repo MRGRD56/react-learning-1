@@ -18,7 +18,7 @@ function PagesNavigator<T>({pagination, ...props}: Props<T>) {
     return (
         <div className="d-flex flex-wrap">
             {pagesNumbers.map(page => (
-                <button className={classes({
+                <button key={page} className={classes({
                     "btn-outline-primary": page === pagination.currentPage,
                     "btn-outline-secondary": page !== pagination.currentPage
                 }, "btn")} onClick={() => pagination.setCurrentPage(page)}>
